@@ -1,0 +1,46 @@
+body {
+    background: #007bff;
+    background: linear-gradient(to right, #0062E6, #33AEFF);
+  }
+  
+  .card-img-left {
+    width: 45%;
+    /* Link to your background image using in the property below! */
+    background: scroll center url('/adoptapetcienega/assets/img/dog_cat_signup2.webp');
+    background-size: cover;
+  }
+  
+  .btn-login {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+  }
+  
+  .btn-google {
+    color: white !important;
+    background-color: #ea4335;
+  }
+  
+  .btn-facebook {
+    color: white !important;
+    background-color: #3b5998;
+  }
+  #customAlert, #overlay {
+    display: none; /* Ocultos por defecto */
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    align-items: center; justify-content: center;
+    font-family: Arial, sans-serif;
+}
+#overlay { background-color: rgba(0, 0, 0, 0.5); }
+#customAlert {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    max-width: 300px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+#customAlert button { margin-top: 15px; padding: 8px; background: #4CAF50; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
