@@ -15,8 +15,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     date_default_timezone_set('America/Mexico_City');
     $fecha_adopcion = date("Y-m-d H:i:s");
 
-    $sql = "INSERT INTO mascotas(nombre_mascota,tipo_mascota,raza,edad,sexo,descripcion,ubicacion_actual,fecha_adopcion,usuario_id) 
-    values('$nombre_mascota','$tipo_mascota','$raza','$edad','$sexo','$descripcion','$ubicacion_actual','$fecha_adopcion','$usuario_id')";
+    $imagen=$_FILES['imagen'];
+    $directorio="fotos/";
+
+    if(!is_dir($directorio)){
+        mkdir($directorio,0777,true);
+    }
+
+    $nombre_imagen=uniqid()."-".basename($imagen["name"]);
+    $ruta_foto=$directorio. $nombre_imagen;
+
+    if(move_uploaded_file($imagen["tmp_name"],$ruta_foto))
+    $sql = "INSERT INTO mascotas(nombre_mascota,tipo_mascota,raza,edad,sexo,descripcion,ubicacion_actual,fecha_adopcion,usuario_id,imagen) 
+    values('$nombre_mascota','$tipo_mascota','$raza','$edad','$sexo','$descripcion','$ubicacion_actual','$fecha_adopcion','$usuario_id','$ruta_foto')";
     if ($conexion->query($sql) === true) {
         echo '<script>
         alert("Mascota registrado exitosamente!");
@@ -41,7 +52,7 @@ $conexion->close();
 <body>
     <div class="form-container">
         <h2>Publicar Mascota</h2>
-        <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
+        <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
             <label for="nombre_mascota">Nombre de la Mascota:</label>
             <input type="text" id="nombre_mascota" name="nombre_mascota" required>
 
@@ -68,6 +79,9 @@ $conexion->close();
 
             <label for="ubicacion_actual">Ubicación Actual:</label>
             <input type="text" id="ubicacion_actual" name="ubicacion_actual" required>
+
+            <label for="imagen">Imagen:</label>
+            <input type="file" id="imagen" name="imagen" required>
 
             <button type="submit">Publicar Mascota</button>
         </form>
