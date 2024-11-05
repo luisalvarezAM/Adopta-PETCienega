@@ -141,11 +141,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-right">
-                                <h4 class="text-white">Mountains</h4>
-                                <p class="mb-0 text-white-50">Another
-                                    example of a project with its respective
-                                    description. These sections work well
-                                    responsively as well!</p>
+                                <h4 class="text-white">Salva una vida hoy</h4>
+                                <p class="mb-0 text-white-50">Adoptar es salvar una vida 
+                                    y ganar un amigo para siempre</p>
                             </div>
                         </div>
                     </div>

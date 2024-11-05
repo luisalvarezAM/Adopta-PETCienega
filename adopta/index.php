@@ -1,5 +1,11 @@
 <?php
 session_start();
+error_reporting(0);
+$varsesion = $_SESSION['id_usuario'];
+if ($varsesion == null || $varsesion = '') {
+    header("location: /adoptapetcienega/");
+    die();
+}
 $id_usuario = $_SESSION['id_usuario'];
 
 require('../assets/conexionBD.php'); //conexion a la base de datos
@@ -48,13 +54,13 @@ $conexion->close();
                             <a href="#" class="nav-link">Mi cuenta</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Publicar mascota</a>
+                            <a href="PublicarMascota.php" class="nav-link">Publicar mascota</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">Mis publicaciones</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Cerrar sesión</a>
+                            <a href="../cerrar_sesion.php" class="nav-link">Cerrar sesión</a>
                         </li>
                     </ul>
                 </div>
@@ -71,7 +77,7 @@ $conexion->close();
                     <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc.
                         Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
                     <p>
-                        <a href="#" class="btn btn-primary my-2">Subir mascota</a>
+                        <a href="PublicarMascota.php" class="btn btn-primary my-2">Subir mascota</a>
                     </p>
                 </div>
             </div>
@@ -88,7 +94,7 @@ $conexion->close();
                     <div class="col">
                         <div class="card shadow-sm">
                             <?php if ($ruta_foto): ?>
-                                <img src="<?php echo $ruta_foto;?>">
+                                <img src="<?php echo $ruta_foto; ?>" class="formato-imagen">
                             <?php endif; ?>
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $nombre_mascota; ?></h5>

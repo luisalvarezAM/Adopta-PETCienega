@@ -15,18 +15,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     date_default_timezone_set('America/Mexico_City');
     $fecha_adopcion = date("Y-m-d H:i:s");
 
-    $imagen=$_FILES['imagen'];
-    $directorio="fotos/";
+    $imagen = $_FILES['imagen'];
+    $directorio = "fotos/";
 
-    if(!is_dir($directorio)){
-        mkdir($directorio,0777,true);
+    if (!is_dir($directorio)) {
+        mkdir($directorio, 0777, true);
     }
 
-    $nombre_imagen=uniqid()."-".basename($imagen["name"]);
-    $ruta_foto=$directorio. $nombre_imagen;
+    $nombre_imagen = uniqid() . "-" . basename($imagen["name"]);
+    $ruta_foto = $directorio . $nombre_imagen;
 
-    if(move_uploaded_file($imagen["tmp_name"],$ruta_foto))
-    $sql = "INSERT INTO mascotas(nombre_mascota,tipo_mascota,raza,edad,sexo,descripcion,ubicacion_actual,fecha_adopcion,usuario_id,imagen) 
+    if (move_uploaded_file($imagen["tmp_name"], $ruta_foto))
+        $sql = "INSERT INTO mascotas(nombre_mascota,tipo_mascota,raza,edad,sexo,descripcion,ubicacion_actual,fecha_adopcion,usuario_id,imagen) 
     values('$nombre_mascota','$tipo_mascota','$raza','$edad','$sexo','$descripcion','$ubicacion_actual','$fecha_adopcion','$usuario_id','$ruta_foto')";
     if ($conexion->query($sql) === true) {
         echo '<script>
@@ -62,17 +62,23 @@ $conexion->close();
                 <option value="2">Gato</option>
             </select>
 
-            <label for="raza">Raza:</label>
-            <input type="text" id="raza" name="raza" required>
-
-            <label for="edad">Edad en Años:</label>
-            <input type="number" id="edad" name="edad" min="0" required>
-
-            <label for="sexo">Sexo:</label>
-            <select id="sexo" name="sexo" required>
-                <option value="M">M (Macho)</option>
-                <option value="H">H (Hembra)</option>
-            </select>
+            <div style="display: flex; gap: 30px; align-items: center;">
+                <div>
+                    <label for="raza">Raza:</label>
+                    <input type="text" id="raza" name="raza" required>
+                </div>
+                <div>
+                    <label for="edad">Edad en Años:</label>
+                    <input type="number" id="edad" name="edad" min="0" required>
+                </div>
+                <div>
+                    <label for="sexo">Sexo:</label>
+                    <select id="sexo" name="sexo" required>
+                        <option value="M">M (Macho)</option>
+                        <option value="H">H (Hembra)</option>
+                    </select>
+                </div>
+            </div>
 
             <label for="descripcion">Descripción:</label>
             <textarea id="descripcion" name="descripcion" rows="1.5" required></textarea>

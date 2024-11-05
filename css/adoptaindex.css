@@ -50,3 +50,9 @@
 main > .container{
   padding: 30px 0;
 }
+.formato-imagen{ 
+  width: 430px; /* Ajusta a la medida deseada */
+  height: 430px; /* Ajusta a la medida deseada */
+  object-fit: cover; /* Para recortar sin distorsionar */
+  border-radius: 10px; /* Bordes redondeados */
+}
