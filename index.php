@@ -2,29 +2,34 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require('assets/conexionBD.php'); //conexion a la base de datos
         $conexion = obtenerConexion();
-        $username = $_POST['username'];
+        $email = $_POST['email'];
         $password = md5($_POST['password']);
         //consulta el usuario y contraseña
-        $sql = "SELECT * FROM usuarios WHERE usuario='$username' and contraseña='$password'";
+
+        $sql = "SELECT * FROM usuarios WHERE correo='$email' and contraseña='$password'";
         $result = $conexion->query($sql);
+
         if ($result->num_rows == 1) {
-            $sql = "SELECT * FROM usuarios where usuario='$username'and tipo_usuario='1'";
+            
+            $fila=$result->fetch_assoc();
+            $id_usuario=$fila['id_usuario'];
+            $nombre_usuario=$fila['nombre_completo'];
+
             session_start();
+            $_SESSION['id_usuario'] = $id_usuario;
+            $_SESSION['nombre_usuario'] = $nombre_usuario;
+
             if ($result->num_rows == 1) { //Visitante
                 header("location:adopta/");
-                $_SESSION['username'] = $username;
             } //Fin de visitante
             else { //administrador
-                echo " estoy en admin";
                 header($header="admin/");
-                $_SESSION['username'] = $username;
             }
         } //Fin de checar si existe el usuario y la contraseña
         else {
             echo '<script>
-            alert("Usuario o contraseña incorrectos");
+            alert("Correo o contraseña incorrectos");
           </script>';
-            //echo '<div class="alert alert-danger" role="alert">Usuario o contraseña incorrectos </div>';
         } //fin de no encontro el usuario o contraseña incorrecta
         $conexion->close();
     }
@@ -158,8 +163,8 @@
                 <h2>Acceder a mi cuenta</h2>
             </div>
             <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
-                <label for="username">Usuario</label>
-                <input type="text" id="username" name="username" placeholder="Introduce tu usuario" required>
+                <label for="email">Usuario</label>
+                <input type="email" id="email" name="email" placeholder="Introduce tu correo" required>
 
                 <label for="password">Contraseña</label>
                 <input type="password" id="password" name="password" placeholder="Introduce tu contraeña" required>

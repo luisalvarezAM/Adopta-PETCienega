@@ -2,59 +2,29 @@
 require('assets/conexionBD.php'); //conexion a la base de datos
 $conexion = obtenerConexion(); //Conexion a la base de datos
 
-require  'assets/PHPMailer/PHPMailer.php'; //Archivos para mandar correos
-require 'assets/PHPMailer/SMTP.php';
-require 'assets/PHPMailer/Exception.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
-    $username = $_POST['username'];
     $password = md5($_POST['password']);
+    $username = $_POST['username'];
+    $nombre_completo = $_POST['nombre_completo'];
     $telefono = $_POST['telefono'];
-    $direccion = $_POST['direccion'];
     date_default_timezone_set('America/Mexico_City');
     $fec_registro = date("Y-m-d H:i:s");
     $tipo_usuario = 1;
-    $sql = "INSERT INTO  usuarios (usuario,contraseña,correo,telefono,direccion,fec_registro,tipo_usuario)
-    VALUES ('$username','$password','$email','$telefono','$direccion','$fec_registro','$tipo_usuario')";
+    $sql = "INSERT INTO  usuarios (correo,contraseña,username,nombre_completo,
+    telefono,fec_registro,tipo_usuario)
+    VALUES ('$email','$password','$username','$nombre_completo','$telefono','$fec_registro','$tipo_usuario')";
 
     if ($conexion->query($sql) === TRUE) {
-        //Enviar correo de bienvenida//
-        $mail = new PHPMailer();
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'adoptapetcienega@gmail.com';
-        $mail->Password = 'ajclxsaikenaqzie';
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-
-        $mail->setFrom('adoptapetcienega@gmail.com', 'Adopta PETCienega');
-        $mail->addAddress($email, $username);
-
-        $mail->isHTML(true);
-        $mail->Subject = 'Bienvenido a la plataforma';
-        $mail->Body = '<b>Muchas gracias por registrarte en Adopta PETCienega</b>
-        Esperemos que juntos podamos ayudar y dar nuevos hogares a todos los animales.';
-
-        session_start();
-
-        if ($mail->send()) {
-            echo '<script>
+        echo '<script>
             alert("¡Usuario registrado exitosamente!");
             window.location.href = "/adoptapetcienega/"; // Redirigir a la página principal
           </script>';
-        } else {
-            echo '<script>
-            alert("¡Error al crear tu cuenta!");
-            window.location.href = "/adoptapetcienega/"; // Redirigir a la página principal
-          </script>';
-        }
-
+    } else {
+        echo '<script>
+        alert("¡Error al crear tu cuenta!");
+        window.location.href = "/adoptapetcienega/"; // Redirigir a la página principal
+      </script>';
     }
 }
 $conexion->close();
@@ -87,14 +57,10 @@ $conexion->close();
                         <div class="card-body p-4 p-sm-5">
                             <h5 class="card-title text-center mb-5 fw-light fs-5">Registro</h5>
                             <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="POST">
+
                                 <div class="form-floating mb-3">
                                     <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required autofocus>
                                     <label for="email">Correo electrónico</label>
-                                </div>
-
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="myusername" required autofocus>
-                                    <label for="username">Nombre de usuario</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
@@ -103,12 +69,17 @@ $conexion->close();
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="tel" class="form-control" id="telefono" name="telefono" pattern="[0-9]{10}" placeholder="Número de telefono">
-                                    <label for="telefono">Telefono</label>
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="myusername" required autofocus>
+                                    <label for="username">Nombre de usuario</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="nombre_completo" name="nombre_completo" placeholder="Nombre completo">
+                                    <label for="nombre_completo">Nombre completo</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Direccion">
-                                    <label for="direccion">Dirección</label>
+                                    <input type="tel" class="form-control" id="telefono" name="telefono" pattern="[0-9]{10}" placeholder="Número de telefono">
+                                    <label for="telefono">Telefono</label>
                                 </div>
 
                                 <div class="d-grid mb-2">
