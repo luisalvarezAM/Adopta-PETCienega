@@ -1,39 +1,39 @@
 <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        require('assets/conexionBD.php'); //conexion a la base de datos
-        $conexion = obtenerConexion();
-        $email = $_POST['email'];
-        $password = md5($_POST['password']);
-        //consulta el usuario y contraseña
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    require('assets/conexionBD.php'); //conexion a la base de datos
+    $conexion = obtenerConexion();
+    $email = $_POST['email'];
+    $password = md5($_POST['password']);
+    //consulta el usuario y contraseña
 
-        $sql = "SELECT * FROM usuarios WHERE correo='$email' and contraseña='$password'";
-        $result = $conexion->query($sql);
+    $sql = "SELECT * FROM usuarios WHERE correo='$email' and contraseña='$password'";
+    $result = $conexion->query($sql);
 
-        if ($result->num_rows == 1) {
-            
-            $fila=$result->fetch_assoc();
-            $id_usuario=$fila['id_usuario'];
-            $nombre_usuario=$fila['nombre_completo'];
+    if ($result->num_rows == 1) {
 
-            session_start();
-            $_SESSION['id_usuario'] = $id_usuario;
-            $_SESSION['nombre_usuario'] = $nombre_usuario;
+        $fila = $result->fetch_assoc();
+        $id_usuario = $fila['id_usuario'];
+        $nombre_usuario = $fila['nombre_completo'];
 
-            if ($result->num_rows == 1) { //Visitante
-                header("location:adopta/");
-            } //Fin de visitante
-            else { //administrador
-                header($header="admin/");
-            }
-        } //Fin de checar si existe el usuario y la contraseña
-        else {
-            echo '<script>
+        session_start();
+        $_SESSION['id_usuario'] = $id_usuario;
+        $_SESSION['nombre_usuario'] = $nombre_usuario;
+
+        if ($result->num_rows == 1) { //Visitante
+            header("location:adopta/");
+        } //Fin de visitante
+        else { //administrador
+            header($header = "admin/");
+        }
+    } //Fin de checar si existe el usuario y la contraseña
+    else {
+        echo '<script>
             alert("Correo o contraseña incorrectos");
           </script>';
-        } //fin de no encontro el usuario o contraseña incorrecta
-        $conexion->close();
-    }
-    ?>
+    } //fin de no encontro el usuario o contraseña incorrecta
+    $conexion->close();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,7 +53,7 @@
     <!--Menú de navegación-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#page-top">Adopta PETCienega</a>
+            <a class="navbar-brand" href="">Adopta PETCienega</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation">
