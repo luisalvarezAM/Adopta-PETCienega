@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 05-11-2024 a las 05:42:10
+-- Tiempo de generación: 06-11-2024 a las 06:42:13
 -- Versión del servidor: 8.3.0
 -- Versión de PHP: 8.2.18
 
@@ -41,19 +41,6 @@ CREATE TABLE IF NOT EXISTS `adopciones` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `estatus_mascota`
---
-
-DROP TABLE IF EXISTS `estatus_mascota`;
-CREATE TABLE IF NOT EXISTS `estatus_mascota` (
-  `mascota_id` int NOT NULL,
-  `estatus` varchar(11) COLLATE utf8mb3_spanish_ci NOT NULL,
-  KEY `mascota_id` (`mascota_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `mascotas`
 --
 
@@ -65,15 +52,24 @@ CREATE TABLE IF NOT EXISTS `mascotas` (
   `raza` varchar(30) COLLATE utf8mb3_spanish_ci NOT NULL,
   `edad` tinyint NOT NULL,
   `sexo` char(1) COLLATE utf8mb3_spanish_ci NOT NULL,
-  `descripcion` varchar(100) COLLATE utf8mb3_spanish_ci NOT NULL,
+  `descripcion` varchar(300) CHARACTER SET utf8mb3 COLLATE utf8mb3_spanish_ci NOT NULL,
   `ubicacion_actual` varchar(60) COLLATE utf8mb3_spanish_ci NOT NULL,
   `fecha_adopcion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `imagen` blob NOT NULL,
+  `imagen` varchar(250) COLLATE utf8mb3_spanish_ci NOT NULL,
   `usuario_id` int NOT NULL,
   PRIMARY KEY (`id_mascota`),
-  KEY `usuario_id` (`usuario_id`),
-  KEY `tipo_mascota` (`tipo_mascota`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+  KEY `tipo_mascota` (`tipo_mascota`,`usuario_id`),
+  KEY `usuario_id` (`usuario_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `mascotas`
+--
+
+INSERT INTO `mascotas` (`id_mascota`, `nombre_mascota`, `tipo_mascota`, `raza`, `edad`, `sexo`, `descripcion`, `ubicacion_actual`, `fecha_adopcion`, `imagen`, `usuario_id`) VALUES
+(1, 'Coxis bebe', 2, 'desconocido', 1, 'H', 'Es una gata muy educada, le encantan los premios', 'Vicente Guerrero 48 #7 Zapotlán del Rey', '2024-11-05 18:32:31', 'fotos/672a64bf7f74f-gato.jpg', 1),
+(3, 'Frida Sofia', 1, 'Chihuahua', 5, 'H', 'Es muy fiel a su dueño, le encanta la atención de su dueño y aparte le encantan los premios', 'González Gallo 48 Poncitlán', '2024-11-06 05:51:46', 'fotos/672b03f2bde27-R.jpg', 1),
+(4, 'Luiso Fernando', 1, 'Pug', 4, 'M', 'Le encanta divertirse mucho en los parques y áreas verdes', 'Hidalgo 165 Ocotlán', '2024-11-06 06:41:41', 'fotos/672b0fa52329a-R (1).jpg', 3);
 
 -- --------------------------------------------------------
 
@@ -135,15 +131,16 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `tipo_usuario` int NOT NULL,
   PRIMARY KEY (`id_usuario`),
   KEY `tipo_usuario` (`tipo_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `username`, `nombre_completo`, `contraseña`, `correo`, `telefono`, `fec_registro`, `tipo_usuario`) VALUES
-(1, 'luisalvareztv', 'Luis Antonio Alvarez Mayoral', '9f451b3fe936a85a0b853c308f99cc72', 'luis.alvarez6917@alumnos.udg.mx', 3319895604, '2024-11-05 05:40:54', 2),
-(2, 'luuiisaalvaareez', 'Luis Alvarez', '8b511b330c8ea4aeb9448b551b7d2c5f', 'gollo235@gmail.com', 3919215257, '2024-11-05 05:41:49', 1);
+(1, 'luisalvareztv', 'Luis Antonio Alvarez Mayoral', '9f451b3fe936a85a0b853c308f99cc72', 'luis.alvarez6917@alumnos.udg.mx', 3319895604, '2024-11-05 18:27:51', 1),
+(2, 'Diego', 'Diego Ibarra', 'dcff38ba9e3ee099edafd2606e35a6b6', 'ibarraramirez01@gmail.com', 3931171442, '2024-11-05 18:30:16', 1),
+(3, 'luuiisaalvaareez', 'Luis Antonio Mayoral', '8b511b330c8ea4aeb9448b551b7d2c5f', 'gollo235@gmail.com', 3919215257, '2024-11-06 06:38:51', 1);
 
 --
 -- Restricciones para tablas volcadas
@@ -156,16 +153,11 @@ ALTER TABLE `adopciones`
   ADD CONSTRAINT `adopciones_ibfk_1` FOREIGN KEY (`mascota_id`) REFERENCES `mascotas` (`id_mascota`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `estatus_mascota`
---
-ALTER TABLE `estatus_mascota`
-  ADD CONSTRAINT `estatus_mascota_ibfk_1` FOREIGN KEY (`mascota_id`) REFERENCES `mascotas` (`id_mascota`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Filtros para la tabla `mascotas`
 --
 ALTER TABLE `mascotas`
-  ADD CONSTRAINT `mascotas_ibfk_1` FOREIGN KEY (`tipo_mascota`) REFERENCES `tipos_mascotas` (`id_tipo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `mascotas_ibfk_1` FOREIGN KEY (`tipo_mascota`) REFERENCES `tipos_mascotas` (`id_tipo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `mascotas_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuarios`

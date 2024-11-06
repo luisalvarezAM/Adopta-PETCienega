@@ -17,6 +17,7 @@ on mascotas.tipo_mascota=tm.id_tipo";
 
 $result = $conexion->query($sql);
 $conexion->close();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +48,7 @@ $conexion->close();
                 <div class="collapse navbar-collapse" id="navbarHeader">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a href="/" class="nav-link active">Mascotas</a>
+                            <a href="" class="nav-link active">Mascotas</a>
                         </li>
                         <li class="nav-item">
                             <a href="MiCuenta.php" class="nav-link">Mi cuenta</a>
@@ -73,8 +74,10 @@ $conexion->close();
             <div class="row py-lg-">
                 <div class="col-lg-6 col-md-8 mx-auto">
                     <h1 class="fw-light">La forma más facil de adoptar</h1>
-                    <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc.
-                        Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+                    <p class="lead text-muted">Gracias por ayudarnos a encontrar un hogar para esta mascota. 
+                        Recuerda que no contamos con un refugio físico; 
+                        conectamos a las mascotas con posibles adoptantes a través de 
+                        esta plataforma.</p>
                     <p>
                         <a href="PublicarMascota.php" class="btn btn-primary my-2">Subir mascota</a>
                     </p>
@@ -100,7 +103,7 @@ $conexion->close();
                                 <p class="card-text"><?php echo $descripcion; ?></p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a href="" class="btn btn-primary">Detalles</a>
+                                        <a href="Detalle.php?id=<?php echo $id_mascota;?>" class="btn btn-primary">Detalle</a>
                                     </div>
                                 </div>
                             </div>
