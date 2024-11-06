@@ -35,7 +35,6 @@ $conexion->close();
 <body>
     <!---Barrra de opciones -->
     <header>
-
         <div class="navbar navbar-expand-lg navbar-dark bg-dark ">
             <div class="container">
                 <a href="#" class="navbar-brand">
@@ -48,16 +47,16 @@ $conexion->close();
                 <div class="collapse navbar-collapse" id="navbarHeader">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">Mascotas</a>
+                            <a href="/" class="nav-link active">Mascotas</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Mi cuenta</a>
+                            <a href="MiCuenta.php" class="nav-link">Mi cuenta</a>
                         </li>
                         <li class="nav-item">
                             <a href="PublicarMascota.php" class="nav-link">Publicar mascota</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Mis publicaciones</a>
+                            <a href="MisPublicaciones.php" class="nav-link">Mis publicaciones</a>
                         </li>
                         <li class="nav-item">
                             <a href="../cerrar_sesion.php" class="nav-link">Cerrar sesión</a>

@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (move_uploaded_file($imagen["tmp_name"], $ruta_foto))
         $sql = "INSERT INTO mascotas(nombre_mascota,tipo_mascota,raza,edad,sexo,descripcion,ubicacion_actual,fecha_adopcion,usuario_id,imagen) 
-    values('$nombre_mascota','$tipo_mascota','$raza','$edad','$sexo','$descripcion','$ubicacion_actual','$fecha_adopcion','$usuario_id','$ruta_foto')";
+        values('$nombre_mascota','$tipo_mascota','$raza','$edad','$sexo','$descripcion','$ubicacion_actual','$fecha_adopcion','$usuario_id','$ruta_foto')";
     if ($conexion->query($sql) === true) {
         echo '<script>
         alert("Mascota registrado exitosamente!");
