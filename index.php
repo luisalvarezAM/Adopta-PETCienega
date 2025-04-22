@@ -2,35 +2,36 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     require('assets/conexionBD.php'); //conexion a la base de datos
     $conexion = obtenerConexion();
-    $email = $_POST['email'];
+    $username = $_POST['username'];
     $password = md5($_POST['password']);
     //consulta el usuario y contraseña
 
-    $sql = "SELECT * FROM usuarios WHERE correo='$email' and contraseña='$password'";
+    $sql = "SELECT id_usuario, nombre_completo, tipo_usuario FROM usuarios 
+    WHERE username='$username' and contraseña='$password'";
     $result = $conexion->query($sql);
 
     if ($result->num_rows == 1) {
-
         $fila = $result->fetch_assoc();
-        $id_usuario = $fila['id_usuario'];
-        $nombre_usuario = $fila['nombre_completo'];
-
         session_start();
-        $_SESSION['id_usuario'] = $id_usuario;
-        $_SESSION['nombre_usuario'] = $nombre_usuario;
+        $_SESSION['id_usuario'] = $fila['id_usuario'];
+        $_SESSION['nombre_usuario'] = $fila['nombre_completo'];
+        $_SESSION['tipo_usuario'] = $fila['tipo_usuario']; // Guardar tipo de usuario en sesión
 
-        if ($result->num_rows == 1) { //Visitante
-            header("location:adopta/");
-        } //Fin de visitante
-        else { //administrador
-            header($header = "admin/");
+        // Redirección según tipo de usuario
+        if ($fila['tipo_usuario'] == 1) { // Visitante
+            header("Location: adopta/");
+        } elseif ($fila['tipo_usuario'] == 2) { // Administrador
+            header("Location: admin/");
         }
-    } //Fin de checar si existe el usuario y la contraseña
-    else {
+        exit(); // Importante para evitar ejecución adicional
+    } else {
+        // Mostrar error de credenciales inválidas
         echo '<script>
-            alert("Correo o contraseña incorrectos");
-          </script>';
-    } //fin de no encontro el usuario o contraseña incorrecta
+    alert("Usuario o contraseña incorrectos");
+    window.location.href = "index.php"; // Redirigir de vuelta al login
+</script>';
+    }
+
     $conexion->close();
 }
 ?>
@@ -42,9 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Inicio</title>
     <link rel="icon" type="image/x-icon" href="assets/adoptapetcienega.png" />
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/style.css" rel="stylesheet" />
 </head>
@@ -54,9 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="">Adopta PETCienega</a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menú
                 <i class="fas fa-bars"></i>
             </button>
@@ -75,9 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
             <div class="d-flex justify-content-center">
                 <div class="text-center">
-                    <h1 class="mx-auto my-0 text-uppercase">Adopta PETCienega</h1>
-                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Un hogar deliz para una
-                        mascota es un hogar feliz para ti.</h2>
+                    <h1 class="mx-auto my-0 text-uppercase"> Adopta PETCienega</h1>
+                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Un hogar feliz para una mascota es un hogar feliz para ti.</h2>
                     <a id="loginBtn" class="btn btn-primary" href="#login">Iniciar Sesión</a>
                 </div>
             </div>
@@ -91,15 +87,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="col-lg-8">
                     <h2 class="text-white mb-4">¿Quiénes Somos?</h2>
                     <p class="text-white-50">
-                        Somos una comunidad dedicada a la adopción de perros y gatos en busca
-                        de un hogar amoroso. A diferencia de los refugios tradicionales, no contamos
-                        con un lugar físico donde los animales estén albergados. Nuestra misión es conectar a mascotas
-                        en situación de vulnerabilidad con familias responsables que les brinden nueva
-                        oportunidad de vida.
+                        Somos una comunidad dedicada a la adopción de perros y gatos en busca de un hogar amoroso. A diferencia de los refugios tradicionales, no contamos con un lugar físico donde los animales estén albergados. Nuestra misión es conectar a mascotas en situación
+                        de vulnerabilidad con familias responsables que les brinden nueva oportunidad de vida.
                     </p>
                 </div>
             </div>
-            <img class="img-fluid" src="assets/img/dog_cat_png" alt="..." />
+            <img class="img-fluid" src="assets/img/dog_cat_png.png" alt="..." />
         </div>
     </section>
     <!-- Projects-->
@@ -107,15 +100,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container px-4 px-lg-5">
             <!-- Featured Project Row-->
             <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-                <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/dog_cat1.jpg"
-                        alt="..." /></div>
+                <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/dog_cat1.jpg" alt="..." /></div>
                 <div class="col-xl-4 col-lg-5">
                     <div class="featured-text text-center text-lg-left">
                         <h4>Una segunda oportunidad, un click de distancia </h4>
-                        <p class="text-black-50 mb-0">Creemos que cada perro y/o gato merece una
-                            segunda oportunidad, por lo que nuestra plataforma facilita el proceso
-                            de adopción, permitiendo a los interesados conocer a los animales a travéz
-                            de fotos y descripciones detalladas!</p>
+                        <p class="text-black-50 mb-0">Creemos que cada perro y/o gato merece una segunda oportunidad, por lo que nuestra plataforma facilita el proceso de adopción, permitiendo a los interesados conocer a los animales a travéz de fotos y descripciones detalladas!</p>
                     </div>
                 </div>
             </div>
@@ -127,8 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-left">
                                 <h4 class="text-white">Una segunda oportunidad, un hogar definitivo</h4>
-                                <p class="mb-0 text-white-50">No tenemos un espacio físico, pero si un compromiso
-                                    infinito por encontrales una familia.</p>
+                                <p class="mb-0 text-white-50">No tenemos un espacio físico, pero si un compromiso infinito por encontrales una familia.</p>
                             </div>
                         </div>
                     </div>
@@ -142,8 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-right">
                                 <h4 class="text-white">Salva una vida hoy</h4>
-                                <p class="mb-0 text-white-50">Adoptar es salvar una vida 
-                                    y ganar un amigo para siempre</p>
+                                <p class="mb-0 text-white-50">Adoptar es salvar una vida y ganar un amigo para siempre</p>
                             </div>
                         </div>
                     </div>
@@ -153,6 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </section>
     <link href="css/style.css" rel="stylesheet" />
     <!-- Iniciar sesion -->
+    <!-- Iniciar sesion -->
     <div id="login" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -161,8 +149,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h2>Acceder a mi cuenta</h2>
             </div>
             <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
-                <label for="email">Usuario</label>
-                <input type="email" id="email" name="email" placeholder="Introduce tu correo" required>
+                <label for="username">Usuario</label>
+                <input type="text" id="username" name="username" placeholder="Introduce tu usuario" required>
 
                 <label for="password">Contraseña</label>
                 <input type="password" id="password" name="password" placeholder="Introduce tu contraeña" required>
@@ -177,6 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
     <script src="js/script_login.js"></script>
+    <script src="js/script_login.js"></script>
     <!-- Contact-->
     <section class="contact-section bg-black">
         <div class="container px-4 px-lg-5">
@@ -187,8 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <i class="fas fa-map-marked-alt text-primary mb-2"></i>
                             <h4 class="text-uppercase m-0">Instagram</h4>
                             <hr class="my-4 mx-auto" />
-                            <div class="small text-black-50"><a
-                                    href="https://www.instagram.com/adoptapetcienega/">@adoptapetcienega </a></div>
+                            <div class="small text-black-50"><a href="https://www.instagram.com/adoptapetcienega/">@adoptapetcienega </a></div>
                         </div>
                     </div>
                 </div>
@@ -198,7 +186,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <i class="fas fa-envelope text-primary mb-2"></i>
                             <h4 class="text-uppercase m-0">Email</h4>
                             <hr class="my-4 mx-auto" />
-                            <div class="small text-black-50"><a></a>adoptapetcienega@gmail.com</a></div>
+                            <div class="small text-black-50">
+                                <a></a>adoptapetcienega@gmail.com</a>
+                            </div>
                         </div>
                     </div>
                 </div>

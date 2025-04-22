@@ -72,13 +72,10 @@ if ($result->fetch_column() > 0) {
                 <div class="collapse navbar-collapse" id="navbarHeader">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a href="/" class="nav-link active">Mascotas</a>
+                            <a href="../adopta/" class="nav-link active">Mascotas</a>
                         </li>
                         <li class="nav-item">
                             <a href="MiCuenta.php" class="nav-link">Mi cuenta</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="PublicarMascota.php" class="nav-link">Publicar mascota</a>
                         </li>
                         <li class="nav-item">
                             <a href="MisPublicaciones.php" class="nav-link">Mis publicaciones</a>

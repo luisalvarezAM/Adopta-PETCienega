@@ -1,89 +1,119 @@
-/* Estilo para el botón de login */
-#loginBtn{
-    font-size: 18px;
-    padding: 10px 20px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    opacity: 0.6;
-    width: 250px;
-    height: 50px;
+/* RESET PARA LOS INPUTS */
+
+input {
+    font-family: inherit;
+    font-size: 100%;
+    line-height: 1.15;
+    margin: 0;
 }
 
-/* Estilo general del modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
+
+/* CONTENEDOR PRINCIPAL DEL FORMULARIO */
+
+.login-form {
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
-/* Contenido del modal */
-.modal-content {
-    background-color: #fff;
-    opacity: 0.8;
-    margin: 10% auto;
-    padding: 10px;
-    border-radius: 8px;
-    width: 450px;
-    position: relative;
+
+/* GRUPO DE INPUTS - CONTENEDOR DE CADA CAMPO */
+
+.form-group {
+    margin-bottom: 20px;
 }
 
-/* Estilo para el botón de cerrar */
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    cursor: pointer;
-}
-form{
+
+/* ETIQUETAS */
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+    text-align: left;
     width: 100%;
 }
-/* Estilo de los inputs */
-input[type="password"],input[type="email"]{
+
+
+/* ESTILO COMÚN PARA TODOS LOS INPUTS */
+
+.form-input {
     width: 100%;
-    padding: 10px;
-    margin: 8px 0;
+    padding: 12px 15px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
 }
 
-/* Estilo para los botones */
+
+/* ESTILOS ESPECÍFICOS PARA CADA TIPO DE INPUT */
+
+.form-input[type="text"],
+.form-input[type="password"],
+.form-input[type="email"] {
+    height: 48px;
+    /* Altura fija para consistencia */
+}
+
+
+/* ESTADO FOCUS */
+
+.form-input:focus {
+    border-color: #4ca8af;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(76, 168, 175, 0.2);
+    background-color: #fff;
+}
+
+
+/* BOTONES */
+
 .btn {
     width: 100%;
-    padding: 10px;
+    padding: 14px;
     margin-top: 10px;
     background-color: #4ca8af;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-}
-
-.btn.secondary {
-    background-color: #f3214b;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
 .btn:hover {
-    opacity: 0.8;
+    background-color: #3a8a90;
+    opacity: 1;
 }
 
-/* Estilo del logo y el encabezado */
-.logo {
+.btn-secondary {
+    background-color: #f3214b;
+}
+
+.btn-secondary:hover {
+    background-color: #d11a3f;
+}
+
+
+/* ENLACE "OLVIDÉ CONTRASEÑA" */
+
+.forgot-password {
     display: block;
-    margin: 0 auto 20px;
-    width: 60px;
-    height: auto;
-}
-
-.modal-header {
-    text-align: center;
+    text-align: right;
+    margin-top: -10px;
     margin-bottom: 20px;
+    color: #666;
+    font-size: 14px;
+    text-decoration: none;
 }
 
+.forgot-password:hover {
+    color: #4ca8af;
+    text-decoration: underline;
+}
