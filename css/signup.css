@@ -1,46 +1,230 @@
+/* Estilos generales */
+
 body {
-    background: #007bff;
-    background: linear-gradient(to right, #0062E6, #33AEFF);
-  }
-  
-  .card-img-left {
-    width: 45%;
-    /* Link to your background image using in the property below! */
-    background: scroll center url('/adoptapetcienega/assets/img/dog_cat_signup2.webp');
-    background-size: cover;
-  }
-  
-  .btn-login {
-    font-size: 0.9rem;
-    letter-spacing: 0.05rem;
-    padding: 0.75rem 1rem;
-  }
-  
-  .btn-google {
-    color: white !important;
-    background-color: #ea4335;
-  }
-  
-  .btn-facebook {
-    color: white !important;
-    background-color: #3b5998;
-  }
-  #customAlert, #overlay {
-    display: none; /* Ocultos por defecto */
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    align-items: center; justify-content: center;
-    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
 }
-#overlay { background-color: rgba(0, 0, 0, 0.5); }
-#customAlert {
+
+.container {
+    max-width: 1200px;
+}
+
+
+/* Estilos de la tarjeta */
+
+.card {
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Estilos para la imagen lateral */
+
+.card-img-left {
+    width: 45%;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
     display: flex;
     flex-direction: column;
-    background-color: #fff;
-    padding: 20px;
-    max-width: 300px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 }
-#customAlert button { margin-top: 15px; padding: 8px; background: #4CAF50; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+
+.card-img-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.img-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.img-overlay h3 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.img-overlay p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+
+/* Estilos del cuerpo de la tarjeta */
+
+.card-body {
+    padding: 3rem;
+    width: 55%;
+}
+
+.card-title {
+    font-weight: 700;
+    color: #2c3e50;
+    font-size: 2rem;
+}
+
+
+/* Estilos de los formularios */
+
+.form-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.section-title {
+    font-weight: 600;
+    color: #3498db;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    position: relative;
+    padding-left: 15px;
+}
+
+.section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 70%;
+    width: 4px;
+    background-color: #3498db;
+    border-radius: 2px;
+}
+
+.form-floating label {
+    color: #7f8c8d;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+    padding: 1rem 1rem;
+    border: 1px solid #ddd;
+    transition: all 0.3s;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+}
+
+
+/* Estilos para campos opcionales */
+
+.optional-field {
+    font-size: 0.8rem;
+    color: #95a5a6;
+    font-style: italic;
+    margin-top: 0.3rem;
+}
+
+
+/* Estilos para la vista previa de la imagen */
+
+.preview-container {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.preview-image {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 50%;
+    border: 3px solid #eee;
+    display: none;
+    margin: 0 auto;
+}
+
+.preview-text {
+    font-size: 0.9rem;
+    color: #95a5a6;
+    margin-top: 0.5rem;
+}
+
+
+/* Estilos para el botón */
+
+.btn-primary {
+    background-color: #3498db;
+    border: none;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+
+/* Estilos para los mensajes de validación */
+
+.invalid-feedback {
+    font-size: 0.85rem;
+}
+
+.was-validated .form-control:invalid,
+.was-validated .form-select:invalid {
+    border-color: #e74c3c;
+}
+
+.was-validated .form-control:valid,
+.was-validated .form-select:valid {
+    border-color: #2ecc71;
+}
+
+
+/* Estilos para el campo de subida de archivos */
+
+.file-upload-wrapper {
+    position: relative;
+}
+
+.file-upload-wrapper input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.file-upload-wrapper .form-control {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+
+/* Responsive */
+
+@media (max-width: 768px) {
+    .card-img-left {
+        display: none;
+    }
+    .card-body {
+        width: 100%;
+    }
+}

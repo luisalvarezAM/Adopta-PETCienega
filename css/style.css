@@ -1,119 +1,93 @@
-/* RESET PARA LOS INPUTS */
+/* Estilos para el modal */
 
-input {
-    font-family: inherit;
-    font-size: 100%;
-    line-height: 1.15;
-    margin: 0;
-}
-
-
-/* CONTENEDOR PRINCIPAL DEL FORMULARIO */
-
-.login-form {
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
     width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    /* Elimina el scroll */
+}
+
+.modal-content {
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
     max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
+    box-shadow: 0 4px 20px rgba(53, 11, 202, 0.2);
 }
 
 
-/* GRUPO DE INPUTS - CONTENEDOR DE CADA CAMPO */
+/* Deshabilitar scroll en el body cuando el modal está abierto */
 
-.form-group {
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-header {
+    text-align: center;
     margin-bottom: 20px;
 }
 
+.modal-header .logo {
+    width: 80px;
+    margin-bottom: 15px;
+}
 
-/* ETIQUETAS */
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #aaa;
+}
 
-.form-label {
-    display: block;
-    margin-bottom: 8px;
+.close:hover {
+    color: #333;
+}
+
+
+/* Estilos para el formulario dentro del modal */
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-content label {
     font-weight: 500;
     color: #333;
     text-align: left;
-    width: 100%;
 }
 
-
-/* ESTILO COMÚN PARA TODOS LOS INPUTS */
-
-.form-input {
+.modal-content input {
     width: 100%;
-    padding: 12px 15px;
-    box-sizing: border-box;
+    padding: 12px;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 16px;
-    background-color: #f8f9fa;
-    transition: all 0.3s ease;
 }
 
 
-/* ESTILOS ESPECÍFICOS PARA CADA TIPO DE INPUT */
+/* Ajuste para los botones */
 
-.form-input[type="text"],
-.form-input[type="password"],
-.form-input[type="email"] {
-    height: 48px;
-    /* Altura fija para consistencia */
-}
-
-
-/* ESTADO FOCUS */
-
-.form-input:focus {
-    border-color: #4ca8af;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(76, 168, 175, 0.2);
-    background-color: #fff;
-}
-
-
-/* BOTONES */
-
-.btn {
+.modal-content .btn {
     width: 100%;
     padding: 14px;
     margin-top: 10px;
     background-color: #4ca8af;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.btn:hover {
-    background-color: #3a8a90;
-    opacity: 1;
-}
-
-.btn-secondary {
-    background-color: #f3214b;
-}
-
-.btn-secondary:hover {
-    background-color: #d11a3f;
-}
-
-
-/* ENLACE "OLVIDÉ CONTRASEÑA" */
-
-.forgot-password {
-    display: block;
-    text-align: right;
-    margin-top: -10px;
-    margin-bottom: 20px;
-    color: #666;
-    font-size: 14px;
-    text-decoration: none;
-}
-
-.forgot-password:hover {
-    color: #4ca8af;
-    text-decoration: underline;
 }

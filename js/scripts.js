@@ -1,8 +1,7 @@
-
 window.addEventListener('DOMContentLoaded', event => {
 
     // Navbar shrink function
-    var navbarShrink = function () {
+    var navbarShrink = function() {
         const navbarCollapsible = document.body.querySelector('#mainNav');
         if (!navbarCollapsible) {
             return;
@@ -35,7 +34,7 @@ window.addEventListener('DOMContentLoaded', event => {
     const responsiveNavItems = [].slice.call(
         document.querySelectorAll('#navbarResponsive .nav-link')
     );
-    responsiveNavItems.map(function (responsiveNavItem) {
+    responsiveNavItems.map(function(responsiveNavItem) {
         responsiveNavItem.addEventListener('click', () => {
             if (window.getComputedStyle(navbarToggler).display !== 'none') {
                 navbarToggler.click();
@@ -47,7 +46,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
 document.getElementById("registerForm").addEventListener("submit", function(event) {
     event.preventDefault();
-    
+
     // Aquí puedes añadir las validaciones del formulario antes de enviarlo
     alert("Formulario enviado con éxito.");
 });

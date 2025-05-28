@@ -19,9 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Redirección según tipo de usuario
         if ($fila['tipo_usuario'] == 1) { // Visitante
-            header("Location: adopta/");
+            header("Location: adopta/index.php");
         } elseif ($fila['tipo_usuario'] == 2) { // Administrador
-            header("Location: admin/");
+            header("Location: admin/dashboard.php");
         }
         exit(); // Importante para evitar ejecución adicional
     } else {
@@ -64,8 +64,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li id="loginBtn2" class="nav-item"><a class="nav-link" href="#login">Únete a la comunidad</a></li>
                 </ul>
             </div>
+            <script src="js/script_login.js"></script>
         </div>
-        <script src="js/script_login.js"></script>
+        
     </nav>
     <!-- Masthead-->
     <header class="masthead">
@@ -73,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="d-flex justify-content-center">
                 <div class="text-center">
                     <h1 class="mx-auto my-0 text-uppercase"> Adopta PETCienega</h1>
-                    <h2 class="text-white-50 mx-auto mt-2 mb-5">Un hogar feliz para una mascota es un hogar feliz para ti.</h2>
+                    <h2 class="text-white-50 mx-auto mt-5 mb-5">Un hogar feliz para una mascota, es un hogar feliz para ti.</h2>
                     <a id="loginBtn" class="btn btn-primary" href="#login">Iniciar Sesión</a>
                 </div>
             </div>
@@ -92,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </p>
                 </div>
             </div>
-            <img class="img-fluid" src="assets/img/dog_cat_png.png" alt="..." />
+            <img class="img-fluid" src="assets/img/design_assets/dog_cat_png.png" alt="..." />
         </div>
     </section>
     <!-- Projects-->
@@ -100,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container px-4 px-lg-5">
             <!-- Featured Project Row-->
             <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-                <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/dog_cat1.jpg" alt="..." /></div>
+                <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/design_assets/dog_cat1.jpg" alt="..." /></div>
                 <div class="col-xl-4 col-lg-5">
                     <div class="featured-text text-center text-lg-left">
                         <h4>Una segunda oportunidad, un click de distancia </h4>
@@ -110,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <!-- Project One Row-->
             <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="assets/img/dog_cat2.jpg" alt="..." /></div>
+                <div class="col-lg-6"><img class="img-fluid" src="assets/img/design_assets/dog_cat2.jpg" alt="..." /></div>
                 <div class="col-lg-6">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
@@ -124,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <!-- Project Two Row-->
             <div class="row gx-0 justify-content-center">
-                <div class="col-lg-6"><img class="img-fluid" src="assets/img/dog_cat3.jpg" alt="..." /></div>
+                <div class="col-lg-6"><img class="img-fluid" src="assets/img/design_assets/dog_cat3.jpg" alt="..." /></div>
                 <div class="col-lg-6 order-lg-first">
                     <div class="bg-black text-center h-100 project">
                         <div class="d-flex h-100">
@@ -140,7 +141,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </section>
     <link href="css/style.css" rel="stylesheet" />
     <!-- Iniciar sesion -->
-    <!-- Iniciar sesion -->
     <div id="login" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
@@ -154,8 +154,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <label for="password">Contraseña</label>
                 <input type="password" id="password" name="password" placeholder="Introduce tu contraeña" required>
-
-                <a href="">¿Olvidaste la contraseña</a>
 
                 <button type="submit" class="btn">Entrar</button>
 
@@ -209,10 +207,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <footer class="footer bg-black small text-center text-white-50">
         <div class="container px-4 px-lg-5">Copyright &copy; Adopta PETCienega 2024-2025</div>
     </footer>
-    <!-- Bootstrap core JS-->
+    <script src="js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
 </body>
 
 </html>

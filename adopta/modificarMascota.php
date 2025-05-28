@@ -189,7 +189,7 @@ if (isset($_SESSION['error'])) {
                                     <div class="mb-3">
                                         <label for="ubicacion_actual" class="form-label">Ubicación</label>
                                         <input type="text" name="ubicacion_actual" id="ubicacion_actual" class="form-control" 
-                                            value="<?= htmlspecialchars($mascota['ubicacion_actual']) ?>" required>
+                                            value="<?= htmlspecialchars($mascota['direccion']) ?>" required>
                                     </div>
                                 </div>
                                 
@@ -197,8 +197,8 @@ if (isset($_SESSION['error'])) {
                                     <div class="mb-3">
                                         <label for="estatus_adopcion" class="form-label">Estatus de adopción</label>
                                         <select name="estatus_adopcion" class="form-select" required>
-                                            <option value="Disponible" <?= $mascota['estatus_adopcion'] == 'Disponible' ? 'selected' : '' ?>>Disponible</option>
-                                            <option value="En proceso" <?= $mascota['estatus_adopcion'] == 'En proceso' ? 'selected' : '' ?>>En proceso</option>
+                                            <option value="1" <?= $mascota['estatus_adopcion'] == 'Disponible' ? 'selected' : '' ?>>Disponible</option>
+                                            <option value="2" <?= $mascota['estatus_adopcion'] == 'En proceso' ? 'selected' : '' ?>>En proceso</option>
                                         </select>
                                     </div>
                                 </div>

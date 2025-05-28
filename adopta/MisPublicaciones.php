@@ -13,7 +13,7 @@ $conexion = obtenerConexion();
 
 $sql = "SELECT id_mascota,nombre_mascota,tm.descripcion,imagen
 from mascotas inner join tipos_mascotas as tm  
-on mascotas.tipo_mascota=tm.id_tipo where usuario_id=$id_usuario";
+on mascotas.tipo_mascota=tm.id_tipo where usuario_id=$id_usuario and estatus_id=1";
 
 $result = $conexion->query($sql);
 $conexion->close();
@@ -31,39 +31,76 @@ $conexion->close();
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
     <link href="../css/bootstrap.bundle.min.js" rel="stylesheet" />
     <link href="../css/adoptaindex.css" rel="stylesheet" />
+    <link href="../css/adopta.css" rel="stylesheet" />
 </head>
 
 <body>
     <!---Barrra de opciones -->
     <header>
-        <div class="navbar navbar-expand-lg navbar-dark bg-dark ">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-2">
             <div class="container">
-                <a href="#" class="navbar-brand">
-                    <strong>Adopta PETCienega</strong>
+                <a href="index.php" class="navbar-brand">
+                    <img src="../assets/adoptapetcienega.png" alt="Logo" width="30" height="30" class="d-inline-block align-top">
+                    <span>Adopta PET Cienega</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarHeader">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a href="index.php" class="nav-link ">Mascotas</a>
+                            <a href="index.php" class="nav-link">Mascotas</a>
                         </li>
                         <li class="nav-item">
-                            <a href="MiCuenta.php" class="nav-link">Mi cuenta</a>
+                            <a href="MiCuenta.php" class="nav-link ">Mi cuenta</a>
                         </li>
                         <li class="nav-item">
                             <a href="MisPublicaciones.php" class="nav-link active">Mis publicaciones</a>
                         </li>
                         <li class="nav-item">
-                            <a href="../cerrar_sesion.php" class="nav-link">Cerrar sesión</a>
+                            <a href="MascotasAdoptadas.php" class="nav-link ">Mascotas Adoptadas</a>
                         </li>
                     </ul>
+                    <div class="d-flex">
+                        <a href="../cerrar_sesion.php" class="btn btn-outline-light">
+                            <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+                        </a>
+                    </div>
                 </div>
-
             </div>
-        </div>
+        </nav>
+        <style>
+            .formato-imagen {
+                width: 100%;
+                height: 360px;
+                object-fit: cover;
+                border-top-left-radius: 0.25rem;
+                border-top-right-radius: 0.25rem;
+            }
+
+            .card-body .btn-group {
+                margin-right: 5px;
+            }
+
+            .acciones {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .acciones .btn {
+                flex: 1 1 auto;
+                min-width: 48%;
+            }
+
+            @media (min-width: 768px) {
+                .acciones .btn {
+                    min-width: auto;
+                    flex: none;
+                }
+            }
+        </style>
+
     </header>
 
     <main>
@@ -81,24 +118,23 @@ $conexion->close();
                             <?php if ($ruta_foto): ?>
                                 <img src="<?php echo $ruta_foto; ?>" class="formato-imagen">
                             <?php endif; ?>
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $nombre_mascota; ?></h5>
-                                <p class="card-text"><?php echo $descripcion; ?></p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <a href="Detalle.php?id=<?php echo $id_mascota; ?>" class="btn btn-primary">Detalle</a>
-                                    </div>
-                                    <div class="btn-group">
-                                        <a href="modificarMascota.php?id=<?php echo $id_mascota; ?>" class="btn btn-primary">Modificar</a>
-                                    </div>
-                                    <button class="btn btn-sm btn-outline-danger" onclick="confirmarEliminacion(<?= $id_mascota ?>)">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                                <div class="btn-group">
+                                    <a href="DetalleMascota.php?id=<?php echo $id_mascota; ?>" class="btn btn-primary">Detalle</a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="modificarMascota.php?id=<?php echo $id_mascota; ?>" class="btn btn-primary">Modificar</a>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-primary" onclick="confirmarEliminacion(<?= $id_mascota ?>)">
                                         <i class="bi bi-trash"></i> Eliminar
                                     </button>
-                                    <div class="btn-group">
-                                        <a href="adopcion.php?id=<?php echo $id_mascota; ?>" class="btn btn-primary">Estatus adopción</a>
-                                    </div>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="adopcion.php?id=<?php echo $id_mascota; ?>" class="btn btn-primary">Adopción</a>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 <?php } ?>

@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Procesar imagen si se subió una nueva
     if (!empty($_FILES['imagen']['name']) && $_FILES['imagen']['error'] == UPLOAD_ERR_OK) {
         $imagen = $_FILES['imagen'];
-        $directorio = "fotos_mascotas/";
+        $directorio = "../assets/img/fotos_mascotas/";
 
         // Validar tipo de archivo
         $permitidos = ['image/jpeg', 'image/png'];
@@ -91,8 +91,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 edad=$edad, 
                 sexo='$sexo', 
                 descripcion='$descripcion', 
-                ubicacion_actual='$ubicacion_actual', 
-                estatus_adopcion='$estatus_adopcion' 
+                direccion='$ubicacion_actual', 
+                estatus_id='$estatus_adopcion' 
                 WHERE id_mascota=$id_mascota";
     }
 
@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['error'] = "Error al actualizar la mascota: " . $conexion->error;
     }
 
-    header("Location: MisPublicaciones.php");
+    header("Location: modificarMascota.php?id=" . $id_mascota);
     exit();
 }
 

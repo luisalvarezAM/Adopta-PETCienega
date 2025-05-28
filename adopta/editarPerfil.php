@@ -7,11 +7,12 @@ $id_usuario = $_SESSION['id_usuario'];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre_completo = $conexion->real_escape_string($_POST['nombre_completo']);
     $telefono = $conexion->real_escape_string($_POST['telefono']);
+    $direccion = $conexion->real_escape_string($_POST['direccion']);
 
     // Procesar imagen de perfil
     if (!empty($_FILES['imagen']['name']) && $_FILES['imagen']['error'] == UPLOAD_ERR_OK) {
         $imagen = $_FILES['imagen'];
-        $directorio = "fotos_perfil/";
+        $directorio = "../assets/img/fotos_perfil/";
 
         // Validar tipo de archivo
         $permitidos = ['image/jpeg', 'image/png', 'image/jpg'];
@@ -47,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             // Actualizar con nueva imagen
-            $sql = "UPDATE usuarios SET nombre_completo='$nombre_completo', telefono='$telefono', img_perfil='$ruta_foto' WHERE id_usuario=$id_usuario";
+            $sql = "UPDATE usuarios SET nombre_completo='$nombre_completo', telefono='$telefono', img_perfil='$ruta_foto', direccion='$direccion' WHERE id_usuario=$id_usuario";
         } else {
             $_SESSION['error'] = "Error al subir la imagen";
             header("Location: MiCuenta.php");
@@ -55,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } else {
         // Actualizar sin cambiar la imagen
-        $sql = "UPDATE usuarios SET nombre_completo='$nombre_completo', telefono='$telefono' WHERE id_usuario=$id_usuario";
+        $sql = "UPDATE usuarios SET nombre_completo='$nombre_completo', telefono='$telefono', direccion='$direccion' WHERE id_usuario=$id_usuario";
     }
 
     if ($conexion->query($sql)) {
